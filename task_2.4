@@ -1,0 +1,11 @@
+SELECT Title,
+       (
+           SELECT count(Name)
+             FROM tracks
+            where tracks.AlbumId = albums.AlbumId
+       ) as num_of_tracks
+  FROM albums;
+
+select title, count(*) from albums join tracks
+on tracks.AlbumId = albums.AlbumId
+group by albums.AlbumId
