@@ -1,0 +1,21 @@
+SELECT FirstName,
+       LastName
+  FROM customers
+ WHERE customers.CustomerId IN (
+           SELECT CustomerId
+             FROM sales
+            WHERE ShipCountry = 'Germany' AND 
+                  strftime('%Y', SalesDate) = '2009'
+            GROUP BY CustomerId
+       );
+
+SELECT FirstName,
+       LastName
+  FROM customers
+       JOIN
+       sales ON customers.CustomerId = sales.CustomerId
+ WHERE sales.ShipCountry = 'Germany' AND 
+       strftime('%Y', sales.SalesDate) = '2009'
+ GROUP BY customers.CustomerId;
+
+       
