@@ -1,0 +1,18 @@
+SELECT sum(UnitPrice) as sum_in_USA 
+  FROM sales_items
+ WHERE sales_items.SalesId IN (
+           SELECT sales.SalesId
+             FROM sales
+            WHERE shipcountry = 'USA' AND 
+                  strftime('%Y', SalesDate) = '2012' AND 
+                  (date(SalesDate, 'start of month') = '2012-01-01' OR 
+                   date(SalesDate, 'start of month') = '2012-02-01' OR 
+                   date(SalesDate, 'start of month') = '2012-03-01') 
+       );
+
+select sum(UnitPrice) as sum_in_USA from sales_items inner join sales
+ on sales_items.SalesId = sales.SalesId and shipcountry = 'USA' AND 
+                  strftime('%Y', SalesDate) = '2012' AND 
+                  (date(SalesDate, 'start of month') = '2012-01-01' OR 
+                   date(SalesDate, 'start of month') = '2012-02-01' OR 
+                   date(SalesDate, 'start of month') = '2012-03-01')

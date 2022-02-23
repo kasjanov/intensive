@@ -1,0 +1,18 @@
+SELECT distinct FirstName
+  FROM customers
+except
+SELECT Firstname
+  FROM employees;
+
+SELECT DISTINCT FirstName
+  FROM customers
+ WHERE FirstName NOT IN (
+           SELECT FirstName
+             FROM employees
+       );
+
+SELECT DISTINCT FirstName
+  FROM customers
+       LEFT JOIN
+       employees ON customers.FirstName = employees.FirstName
+ WHERE employees.FirstName IS NULL;
